@@ -10,8 +10,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-SharedPreferences prefs = SharedPreferences.getInstance() as SharedPreferences;
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -22,7 +20,6 @@ class HomePage extends StatefulWidget {
 Future<Position> _getCurrentLocation() async {
   Position? position;
   position = await Geolocator.getLastKnownPosition();
-  prefs = await SharedPreferences.getInstance();
 
   await for (final pos in Geolocator.getPositionStream(
     locationSettings: LocationSettings(
@@ -35,7 +32,21 @@ Future<Position> _getCurrentLocation() async {
       break;
     }
   }
-  return position!;
+
+  // defaults to buckinghamshire university
+  return position ??
+      Position(
+        longitude: -0.7558618,
+        latitude: 51.6278909,
+        timestamp: DateTime.now(),
+        accuracy: 5,
+        altitude: 0,
+        heading: 0,
+        speed: 0,
+        altitudeAccuracy: 0,
+        headingAccuracy: 0,
+        speedAccuracy: 0,
+      );
 }
 
 Future<List<Map<String, dynamic>>> fetchData() async {
@@ -154,7 +165,6 @@ class _HomePageState extends State<HomePage> {
     }
 
     final foodBanks = _foodBanks;
-    foodBanks.sort((a, b) => b.hygieneRating.compareTo(a.hygieneRating));
 
     return FoodBankPage(
       child: Padding(
@@ -197,7 +207,6 @@ class _HomePageState extends State<HomePage> {
                         MaterialPageRoute(
                           builder:
                               (context) => FoodBankDetailsPage(
-                                prefs: prefs,
                                 title: fb.name,
                                 location: fb.location,
                                 distance: fb.distance,

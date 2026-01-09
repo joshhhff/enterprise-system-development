@@ -3,10 +3,8 @@ import 'package:foodbank_app/pages/food_bank_page.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FoodBankDetailsPage extends StatefulWidget {
-  final SharedPreferences prefs;
   final String title;
   final String location;
   final String distance;
@@ -17,7 +15,6 @@ class FoodBankDetailsPage extends StatefulWidget {
 
   const FoodBankDetailsPage({
     super.key,
-    required this.prefs,
     required this.location,
     required this.distance,
     required this.img,
