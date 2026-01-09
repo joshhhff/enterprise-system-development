@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodbank_app/pages/food_bank_info.dart';
+import 'package:foodbank_app/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: FoodBankDetailsPage(
-        title: "Food Bank Name",
-        rating: 4.5,
-        numberOfRatings: 120,
-        description: "A brief description of the food bank.",
-      ),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
